@@ -14,7 +14,7 @@ def load_system_directives():
         system_directives = json.load(f)
     return system_directives
 
-def chatgpt_response(prompt):
+async def chatgpt_response(prompt):
     global DIALOGUE_STACK, SYSTEM_DIRECTIVES
     SYSTEM_DIRECTIVES = load_system_directives()
     current_prompt = {"role": "user", "content": prompt}

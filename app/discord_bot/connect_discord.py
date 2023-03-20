@@ -10,14 +10,15 @@ class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged in as: ', self.user)
     async def on_message(self, message):
-        if message.author == self.user:
+        if message.author == client.user:
             return
-        message_content=message.content
-        chat_response=chatgpt_response(message_content)
-        if "mabel" in message_content.lower() or "Mabel" in message_content.lower():
-            print(message_content)
-            await message.channel.send(f"{chat_response}")
-        return 
+        if message.content.startswith('!mabel'):
+            prompt = message.content[7:]
+            response = await chatgpt_response(prompt)
+            await message.channel.send(response)
+
 intents=discord.Intents.default()
 intents.messages=True
 client=MyClient(intents=intents)
+
+
