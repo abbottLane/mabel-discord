@@ -5,6 +5,7 @@ from app.mabel.connect_openai import chatgpt_response
 
 load_dotenv()
 discord_token=os.getenv('DISCORD_TOKEN')
+print("DISCORD_TOKEN: ", discord_token)
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged in as: ', self.user)
