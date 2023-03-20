@@ -24,7 +24,7 @@ def chatgpt_response(prompt):
 
     if "mabel" in prompt.lower() or "Mabel" in prompt.lower():
         response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=messages,
         max_tokens=1800,
         )
