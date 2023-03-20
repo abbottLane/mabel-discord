@@ -12,9 +12,10 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        chat_response=chatgpt_response(message.content)
-        if "mabel" in message.content.lower() or "Mabel" in message.content.lower():
-            print(message.content)
+        message_content=message.content
+        chat_response=chatgpt_response(message_content)
+        if "mabel" in message_content.lower() or "Mabel" in message_content.lower():
+            print(message_content)
             await message.channel.send(f"{chat_response}")
         return 
 intents=discord.Intents.default()
