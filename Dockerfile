@@ -1,8 +1,9 @@
-# This dockerfile runs the run.py python file
+# This dockerfile runs the mabel-chat service as a production application. the run.py
+# python file is where the service is started.
 # which is the main file for the application
 
 # Use an official Python runtime as a parent image
-FROM python:3.9
+FROM python:3.8
 
 # Set the working directory to /app
 WORKDIR /
@@ -13,8 +14,6 @@ ADD . .
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
 
-# Run run.py when the container launches
+# Run app.py when the container launches
 CMD ["python", "run.py"]

@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import openai
 import os
 import json
-#load_dotenv()
+load_dotenv()
 openai.api_key=os.getenv('OPENAI_KEY')
 
 SYSTEM_DIRECTIVES = []
@@ -32,3 +32,4 @@ async def chatgpt_response(prompt):
         return response ['choices'][0]['message']['content']
     else:
         DIALOGUE_STACK.append({"role": "user", "content": prompt})
+        return

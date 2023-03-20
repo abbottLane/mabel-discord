@@ -3,7 +3,7 @@ import os
 import discord
 from app.mabel.connect_openai import chatgpt_response
 
-#load_dotenv()
+load_dotenv()
 discord_token=os.getenv('DISCORD_TOKEN')
 print("DISCORD_TOKEN: ", discord_token)
 class MyClient(discord.Client):
@@ -16,6 +16,7 @@ class MyClient(discord.Client):
             prompt = message.content[7:]
             response = await chatgpt_response(prompt)
             await message.channel.send(response)
+        return
 
 intents=discord.Intents.default()
 intents.messages=True
