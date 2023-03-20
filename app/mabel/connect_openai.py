@@ -10,7 +10,7 @@ DIALOGUE_STACK = []
 
 def load_system_directives():
     '''Load the json file containing system directives'''
-    with open('app/mabel/system_directives/system_directives.json') as f:
+    with open('app/mabel/system-directives/system_directives.json') as f:
         system_directives = json.load(f)
     return system_directives
 
