@@ -2,8 +2,12 @@ from dotenv import load_dotenv
 import openai
 import os
 import json
-load_dotenv()
-openai.api_key=os.getenv('OPENAI_KEY')
+import logging
+#load_dotenv()
+openai_key = openai.api_key=os.getenv('OPENAI_KEY')
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 SYSTEM_DIRECTIVES = []
 DIALOGUE_STACK = []
@@ -22,14 +26,17 @@ async def chatgpt_response(prompt):
     DIALOGUE_STACK = DIALOGUE_STACK[-6:]
     messages = SYSTEM_DIRECTIVES + DIALOGUE_STACK
 
-    if "mabel" in prompt.lower() or "Mabel" in prompt.lower():
+    if "mabel" in prompt.lower():
+        logger.info("PROMPT: " + prompt.lower())
         response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=messages,
         max_tokens=1800,
         )
-        DIALOGUE_STACK.append({"role": "assistant", "content": response['choices'][0]['message']['content']})
-        return response ['choices'][0]['message']['content']
+        response_content = response['choices'][0]['message']['content']
+        logger.info("RESPONSE: " + response_content)
+        DIALOGUE_STACK.append({"role": "assistant", "content": response_content })
+        return response_content
     else:
         DIALOGUE_STACK.append({"role": "user", "content": prompt})
         return
