@@ -28,15 +28,20 @@ async def chatgpt_response(prompt):
 
     if "mabel" in prompt.lower():
         logger.info("PROMPT: " + prompt.lower())
-        response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        max_tokens=1800,
-        )
-        response_content = response['choices'][0]['message']['content']
-        logger.info("RESPONSE: " + response_content)
-        DIALOGUE_STACK.append({"role": "assistant", "content": response_content })
-        return response_content
+        try:
+            response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            max_tokens=1800,
+            )
+            response_content = response['choices'][0]['message']['content']
+            logger.info("RESPONSE: " + response_content)
+            DIALOGUE_STACK.append({"role": "assistant", "content": response_content })
+            return response_content
+        except Exception as e:
+            logger.info("OPENAI Error: " + str(e))
+            return "NO RESPONSE"
+        
     else:
         DIALOGUE_STACK.append({"role": "user", "content": prompt})
         return
