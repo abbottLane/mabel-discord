@@ -26,22 +26,18 @@ async def chatgpt_response(prompt):
     DIALOGUE_STACK = DIALOGUE_STACK[-6:]
     messages = SYSTEM_DIRECTIVES + DIALOGUE_STACK
 
-    if "mabel" in prompt.lower():
-        logger.info("PROMPT: " + prompt.lower())
-        try:
-            response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=messages,
-            max_tokens=1800,
-            )
-            response_content = response['choices'][0]['message']['content']
-            logger.info("RESPONSE: " + response_content)
-            DIALOGUE_STACK.append({"role": "assistant", "content": response_content })
-            return response_content
-        except Exception as e:
-            logger.info("OPENAI Error: " + str(e))
-            return "NO RESPONSE"
-        
-    else:
-        DIALOGUE_STACK.append({"role": "user", "content": prompt})
-        return
+    
+    logger.info("PROMPT: " + prompt.lower())
+    try:
+        response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=messages,
+        max_tokens=1800,
+        )
+        response_content = response['choices'][0]['message']['content']
+        logger.info("RESPONSE: " + response_content)
+        DIALOGUE_STACK.append({"role": "assistant", "content": response_content })
+        return response_content
+    except Exception as e:
+        logger.info("OPENAI Error: " + str(e))
+        return "I'm sorry, I'm having trouble understanding you. Could you try rephrasing that?"        
