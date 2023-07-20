@@ -36,7 +36,8 @@ async def chatgpt_response(prompt):
         )
         response_content = response['choices'][0]['message']['content']
         logger.info("RESPONSE: " + response_content)
-        DIALOGUE_STACK.append({"role": "assistant", "content": response_content })
+        if not "As an AI language model" in response_content:
+            DIALOGUE_STACK.append({"role": "assistant", "content": response_content })
         return response_content
     except Exception as e:
         logger.info("OPENAI Error: " + str(e))
